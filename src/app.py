@@ -10,7 +10,7 @@ from compute.rssa import AlternateRS
 from compute.utils import *
 from data.moviedatabase import SessionLocal
 from data.models.schema.movieschema import MovieSchema, RatingsSchema
-from router import cybered, iers, users, study, admin, pref_comm, dataviewer, pref_viz
+from router import cybered, iers, users, study, admin, pref_comm, pref_viz
 from data.movies import get_movies, get_movies_by_ids
 from router.admin import get_current_active_user, AdminUser
 from middleware.error_handlers import ErrorHanlingMiddleware
@@ -49,7 +49,6 @@ origins = [
 app.include_router(cybered.router)
 app.include_router(iers.router)
 app.include_router(pref_comm.router)
-app.include_router(dataviewer.router)
 app.include_router(pref_viz.router)
 app.include_router(users.router)
 app.include_router(study.router)
