@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: csr
+Version: 0.4.1
+Summary: Compressed Sparse Row matrices for Python, with Numba API.
+Home-page: https://csr.lenskit.org
+Author: Michael Ekstrand <michaelekstrand@boisestate.edu>
+Author-email: michaelekstrand@boisestate.edu
+Requires-Python: >= 3.7
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Requires-Dist: numba >=0.51,<0.56
+Requires-Dist: numpy >=1.17
+Requires-Dist: scipy ==1.*
+Requires-Dist: flit ; extra == "dev"
+Requires-Dist: keyring ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: rstcheck ; extra == "dev"
+Requires-Dist: invoke ; extra == "dev"
+Requires-Dist: conda-lock>=0.13.2 ; extra == "dev"
+Requires-Dist: sphinx-autobuild >=2021 ; extra == "dev"
+Requires-Dist: sphinx >=4 ; extra == "doc"
+Requires-Dist: furo ; extra == "doc"
+Requires-Dist: cffi ; extra == "mkl"
+Requires-Dist: notebook ; extra == "profile"
+Requires-Dist: seaborn ; extra == "profile"
+Requires-Dist: jupytext ; extra == "profile"
+Requires-Dist: pandas >=1.0 ; extra == "profile"
+Requires-Dist: pytest >=6 ; extra == "test"
+Requires-Dist: pytest-doctestplus >=0.9 ; extra == "test"
+Requires-Dist: pytest-benchmark >=3 ; extra == "test"
+Requires-Dist: pytest-cov >=2.12 ; extra == "test"
+Requires-Dist: hypothesis >=6 ; extra == "test"
+Requires-Dist: psutil >=5 ; extra == "test"
+Provides-Extra: dev
+Provides-Extra: doc
+Provides-Extra: mkl
+Provides-Extra: profile
+Provides-Extra: test
+
+# CSR Matrices for Python
+
+[![codecov](https://codecov.io/gh/lenskit/csr/branch/main/graph/badge.svg?token=6UQ4O8FCKK)](https://codecov.io/gh/lenskit/csr)
+
+This package provides an implementation of sparse matrices in compressed sparse
+row format for Python. Routines are implemented with Numba, and both the CSR
+data structure and most related matrix and vector operations can be used from
+Numba's nopython mode.
+
+Right now the feature set is very limited --- don't expect this to be a drop-in
+replacement for SciPy's sparse matrices.  Some features we expect to develop as
+people take an interest in the package and contribute updates, but we also hope
+to keep a relatively tight scope.  This package aims to provide efficient support
+for compressed sparse row matrices, with some routines that can also treat them
+as CSC matrices.
+

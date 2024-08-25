@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: seedbank
+Version: 0.1.2
+Summary: Common infrastructure for initializing random number generators.
+Author-email: Michael Ekstrand <michaelekstrand@boisestate.edu>
+Requires-Python: >= 3.7
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Requires-Dist: numpy >=1.17
+Requires-Dist: anyconfig
+Requires-Dist: flit >=3.2 ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: ipython ; extra == "dev"
+Requires-Dist: sphinx-autobuild ; extra == "dev"
+Requires-Dist: invoke ; extra == "dev"
+Requires-Dist: conda-lock ; extra == "dev"
+Requires-Dist: sphinx >=4 ; extra == "doc"
+Requires-Dist: furo ; extra == "doc"
+Requires-Dist: numba ; extra == "numba"
+Requires-Dist: pytest >= 6 ; extra == "test"
+Requires-Dist: pytest-doctestplus ; extra == "test"
+Requires-Dist: pytest-cov ; extra == "test"
+Requires-Dist: pyyaml ; extra == "test"
+Requires-Dist: tomli ; extra == "test"
+Requires-Dist: tensorflow >=2,<3 ; extra == "tf"
+Requires-Dist: torch ; extra == "torch"
+Project-URL: GitHub, https://github.com/lenskit/seedbank
+Project-URL: Homepage, https://seedbank.lenksit.org
+Provides-Extra: dev
+Provides-Extra: doc
+Provides-Extra: numba
+Provides-Extra: test
+Provides-Extra: tf
+Provides-Extra: torch
+
+# Python Seed Manager
+
+Python programs, particularly data science applications, often need to
+interact with multiple different random number generators.
+
+This package provides a unified interface to seeding them, along with
+APIs for deriving additional RNG seeds in a predictable way (using NumPy
+1.17's new random infrastructure) and constructing random generators.
+
+## Quick Start
+
+To get started, just use the seedbank.initialize() function to seed all available random number generators:
+
+```python
+import seedbank
+seedbank.initialize(65000)
+```
+
+SeedBank will seed all of the known generators that will be available, including:
+
+- Python standard random
+- NumPy legacy random `numpy.random`
+- PyTorch (with torch.manual_seed())
+- Numba’s NumPy random
+- TensorFlow (with tf.random.set_seed())
+
+In addition, it will initialize a root seed for constructing new-style NumPy `Generator` instances.
+
+If SeedBank doesn’t support your RNG yet, please submit a pull request!
+
+## Developing SeedBank
+
+SeedBank uses Flit for managing dependencies.  To set up in a fresh
+virtual environment:
+
+    python -m pip install flit
+    flit install --pth-file
+
+[conda-lock][] can help you set up a Conda environment (replace `linux-64` with your platform):
+
+    # install conda-lock in base environment
+    # alternatively: pip install conda-lock
+    conda install -c conda-forge conda-lock
+    # create the lock file
+    conda-lock -p linux-64 -f pyproject.toml
+    # create the environment
+    conda env create -n seedbank -f conda-linux-64.lock
+
