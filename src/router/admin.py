@@ -10,7 +10,9 @@ from pydantic import BaseModel
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-
+SECRET_KEY = "your_very_secret_key_here"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Adjust as needed
 
 
 router = APIRouter()
@@ -57,6 +59,15 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
 	return pwd_context.hash(password)
 
+fake_users_db = {
+    "admin_user": {
+        "username": "admin_user",
+        "full_name": "Admin User",
+        "email": "admin@example.com",
+        "hashed_password": get_password_hash("adminpassword"),
+        "disabled": False,
+    }
+}
 
 def get_user(db, username: str):
 	if username in db:
